@@ -1,22 +1,23 @@
 import urllib.parse
+import warnings
+
 import requests
+from requests.exceptions import SSLError
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 from data import payloads, types
 from modules import logger, transform
-from requests.exceptions import SSLError
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
-import warnings
 
 # Suppress the InsecureRequestWarning when SSL verification is disabled
-warnings.simplefilter('ignore', InsecureRequestWarning)
+warnings.simplefilter("ignore", InsecureRequestWarning)
 
 
 def execute(url: str, command: str) -> str:
-    """ 
-        Execute a command on the target system using the specified URL.
-            - Ignores SSL verification errors
     """
-    
+    Execute a command on the target system using the specified URL.
+        - Ignores SSL verification errors
+    """
+
     if "SHELL" not in url:
         logger.log("Invalid URL. Please make sure the formatting is correct.")
         exit()
